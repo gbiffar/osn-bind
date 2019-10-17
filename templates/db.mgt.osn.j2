@@ -1,0 +1,32 @@
+;
+; /var/named/zones/adm/db.mgt.osn
+; DNS zone map for the OSN management network
+;
+$TTL 3D
+$ORIGIN {{ mgt_zone }}.
+@       IN      SOA     dns01.{{ mgt_zone }}.  hostmaster.openstoragenetwork.org. (
+                        {{ timestamp }}      ; serial format: yyyymmddrr
+                                        ; where rr = today's revision#
+                        8H              ; refresh, seconds
+                        2H              ; retry, seconds
+                        4W              ; expire, seconds
+                        1D )            ; minimum, seconds
+;
+; name servers
+{% for item in mgt_nameservers %}
+{{ mgt_zone }}.	NS	{{ item }}.{{ mgt_zone }}.
+{% endfor %}
+;
+; mail servers (not yet implemented)
+;                        MX   10 smtp1                ; primary mail exchanger
+;                        MX   20 smtp2                ; secondary mail exchanger
+;
+localhost               A       127.0.0.1
+;
+{% for key,value in mgt_a.iteritems() %}
+{{ key }}		A	{{ value }}
+{% endfor %}
+
+{% for key,value in mgt_cname.iteritems() %}
+{{ key }}	CNAME	{{ value }}
+{% endfor %}

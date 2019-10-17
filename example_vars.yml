@@ -1,0 +1,108 @@
+###########
+# osn-dns #
+###########
+
+dns_listen: 
+  - '172.16.3.12'
+  - '172.16.2.22'
+
+timestamp: '1562355145' #serial number used zones
+
+mgt_zone: 'mgt.osn'
+mgt_reverse_zone: '3.16.172.in-addr.arpa'
+ext_zone: 'ext.osn'
+ext_reverse_zone: '2.16.172.in-addr.arpa'
+
+mgt_nameservers: 
+  - 'sdsc-dns01-mgt'
+  - 'sdsc-dns02-mgt'
+  - 'sdsc-dns03-mgt'
+ext_nameservers: 
+  - 'sdsc-dns01-ext'
+  - 'sdsc-dns02-ext'
+  - 'sdsc-dns03-ext'
+
+mgt_a:
+  'sdsc-dat01-mgt': '172.16.3.101'
+  'sdsc-dat02-mgt': '172.16.3.102'
+  'sdsc-dat03-mgt': '172.16.3.103'
+  'sdsc-dat04-mgt': '172.16.3.104'
+  'sdsc-dat05-mgt': '172.16.3.105'
+  'sdsc-mon01-mgt': '172.16.3.21'
+  'sdsc-svc01-mgt': '172.16.3.11'
+  'sdsc-dns01-mgt': '172.16.3.11'
+  'sdsc-mon02-mgt': '172.16.3.22'
+  'sdsc-svc02-mgt': '172.16.3.12'
+  'sdsc-dns02-mgt': '172.16.3.12'
+  'sdsc-mon03-mgt': '172.16.3.23'
+  'sdsc-svc03-mgt': '172.16.3.13'
+  'sdsc-dns03-mgt': '172.16.3.13'
+  'sdsc-mlx01-mgt': '172.16.3.31'
+  'sdsc-kvm01-mgt': '172.16.3.41'
+  'sdsc-pdu01-mgt': '172.16.3.51'
+  'sdsc-pdu02-mgt': '172.16.3.52'
+
+mgt_cname:
+  'sdsc-dhc01-mgt': 'sdsc-svc01-mgt'
+  'sdsc-tft01-mgt': 'sdsc-svc01-mgt'
+  'sdsc-ntp01-mgt': 'sdsc-svc01-mgt'
+  'sdsc-dhc02-mgt': 'sdsc-svc02-mgt'
+  'sdsc-tft02-mgt': 'sdsc-svc02-mgt'
+  'sdsc-ntp02-mgt': 'sdsc-svc02-mgt'
+  'sdsc-dhc03-mgt': 'sdsc-svc03-mgt'
+  'sdsc-tft03-mgt': 'sdsc-svc03-mgt'
+  'sdsc-ntp03-mgt': 'sdsc-svc03-mgt'
+
+mgt_ptr:
+  '101': 'sdsc-dat01-mgt.mgt.osn.'
+  '102': 'sdsc-dat02-mgt.mgt.osn.'
+  '103': 'sdsc-dat03-mgt.mgt.osn.'
+  '104': 'sdsc-dat04-mgt.mgt.osn.'
+  '105': 'sdsc-dat05-mgt.mgt.osn.'
+  '11': 'sdsc-svc01-mgt.mgt.osn.'
+  '12': 'sdsc-svc02-mgt.mgt.osn.'
+  '13': 'sdsc-svc03-mgt.mgt.osn.'
+  '21': 'sdsc-mon01-mgt.mgt.osn.'
+  '22': 'sdsc-mon02-mgt.mgt.osn.'
+  '23': 'sdsc-mon03-mgt.mgt.osn.'
+  '31': 'sdsc-mlx01-mgt.mgt.osn.'
+  '41': 'sdsc-kvm01-mgt.mgt.osn.'
+  '51': 'sdsc-pdu01-mgt.mgt.osn.'
+  '52': 'sdsc-pdu02-mgt.mgt.osn.'
+
+ext_a:
+  'sdsc-dat01-ext': '172.16.2.101'
+  'sdsc-dat02-ext': '172.16.2.102'
+  'sdsc-dat03-ext': '172.16.2.103'
+  'sdsc-dat04-ext': '172.16.2.104'
+  'sdsc-dat05-ext': '172.16.2.105'
+  'sdsc-mon01-ext': '172.16.2.21'
+  'sdsc-dns01-ext': '172.16.2.21'
+  'sdsc-mon02-ext': '172.16.2.22'
+  'sdsc-dns02-ext': '172.16.2.22'
+  'sdsc-mon03-ext': '172.16.2.23'
+  'sdsc-dns03-ext': '172.16.2.23'
+
+ext_cname:
+  'sdsc-dhc01-ext': 'sdsc-mon01-ext'
+  'sdsc-tft01-ext': 'sdsc-mon01-ext'
+  'sdsc-ntp01-ext': 'sdsc-mon01-ext'
+  'sdsc-svc01-ext': 'sdsc-mon01-ext'
+  'sdsc-dhc02-ext': 'sdsc-mon02-ext'
+  'sdsc-tft02-ext': 'sdsc-mon02-ext'
+  'sdsc-ntp02-ext': 'sdsc-mon02-ext'
+  'sdsc-svc02-ext': 'sdsc-mon02-ext'
+  'sdsc-dhc03-ext': 'sdsc-mon03-ext'
+  'sdsc-tft03-ext': 'sdsc-mon03-ext'
+  'sdsc-ntp03-ext': 'sdsc-mon03-ext'
+  'sdsc-svc03-ext': 'sdsc-mon03-ext'
+
+ext_ptr:
+  '101': 'sdsc-dat01-ext.ext.osn.'
+  '102': 'sdsc-dat02-ext.ext.osn.'
+  '103': 'sdsc-dat03-ext.ext.osn.'
+  '104': 'sdsc-dat04-ext.ext.osn.'
+  '105': 'sdsc-dat05-ext.ext.osn.'
+  '21': 'sdsc-mon01-ext.ext.osn.'
+  '22': 'sdsc-mon02-ext.ext.osn.'
+  '23': 'sdsc-mon03-ext.ext.osn.'

@@ -1,0 +1,19 @@
+$TTL 3D
+$ORIGIN {{ mgt_reverse_zone }}.
+@       IN      SOA     dns01.{{ mgt_zone }}.  hostmaster.openstoragenetwork.org. (
+                        {{ timestamp }}      ; serial format: yyyymmddrr
+                                        ; where rr = today's revision#
+                        8H              ; refresh, seconds
+                        2H              ; retry, seconds
+                        4W              ; expire, seconds
+                        1D )            ; minimum, seconds
+;
+; name servers
+;
+{% for item in mgt_nameservers %}
+	IN	NS	{{ item }}.
+{% endfor %}
+;
+{% for key,value in mgt_ptr.iteritems() %}
+{{ key }}	IN	PTR	{{ value }}
+{% endfor %}

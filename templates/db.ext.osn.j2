@@ -1,0 +1,31 @@
+; DNS zone map for the OSN cluster external network
+;
+$TTL 3D
+$ORIGIN {{ ext_zone }}.
+@       IN      SOA     dns01.{{ ext_zone }}.  hostmaster.openstoragenetwork.org. (
+                        {{ timestamp }}      ; serial format: yyyymmddrr
+                                        ; where rr = today's revision#
+                        8H              ; refresh, seconds
+                        2H              ; retry, seconds
+                        4W              ; expire, seconds
+                        1D )            ; minimum, seconds
+;
+; name servers
+{% for item in ext_nameservers %}
+{{ ext_zone }}.                NS      {{ item }}.{{ ext_zone }}.
+{% endfor %}
+;
+; mail servers (not yet implemented)
+;                        MX   10 smtp1                ; primary mail exchanger
+;                        MX   20 smtp2                ; secondary mail exchanger
+;
+localhost               A       127.0.0.1
+;
+{% for key,value in ext_a.iteritems() %}
+{{ key }}         A       {{ value }}
+{% endfor %}
+;
+{% for key,value in ext_cname.iteritems() %}
+{{ key }}     CNAME   {{ value }}
+{% endfor %}
+;

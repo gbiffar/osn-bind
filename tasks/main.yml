@@ -1,0 +1,89 @@
+---
+- name: bind install
+  yum:
+    name: bind
+    state: present
+
+#### Currently, the timestamp is statically defined in the site's 
+#### group_vars file and needs to be updated if any changes are 
+#### made. Will need to revisit if we want the SN to be auto 
+#### generated when a change needs to be made by Ansible.
+ 
+#- name: create serial for config 
+#  command: date -u +%s
+#  register: timestamp
+#  changed_when: false
+#  run_once: true
+#  check_mode: false
+
+- name: set bind config
+  template:
+    src: named.conf.j2
+    dest: /etc/named.conf
+    mode: 0640
+    owner: root
+    group: named
+    backup: yes
+  notify: restart bind
+
+- name: set rfc1912 zones
+  template:
+    src: named.rfc1912.zones.j2
+    dest: /etc/named.rfc1912.zones
+    mode: 0640
+    owner: root
+    group: named
+    backup: yes
+  notify: restart bind
+
+- name: create zones directory
+  file:
+    path: /etc/named/zones
+    state: directory
+    owner: root
+    group: named
+    mode: 0750
+  notify: restart bind
+
+- name: set mgt.osn forward zone
+  template:
+    src: "db.{{ mgt_zone }}.j2"
+    dest: "/etc/named/zones/db.{{ mgt_zone }}"
+    mode: 0640
+    owner: root
+    group: named
+  notify: restart bind
+
+- name: set ext.osn forward zone
+  template:
+    src: "db.{{ ext_zone }}.j2"
+    dest: "/etc/named/zones/db.{{ ext_zone }}"
+    mode: 0640
+    owner: root
+    group: named
+  notify: restart bind
+
+- name: set mgt.osn reverse zone
+  template:
+    src: "db.{{ mgt_reverse_zone }}.j2"
+    dest: "/etc/named/zones/db.{{ mgt_reverse_zone }}"
+    mode: 0640
+    owner: root
+    group: named
+  notify: restart bind
+
+- name: set ext.osn reverse zone
+  template:
+    src: "db.{{ ext_reverse_zone }}.j2"
+    dest: "/etc/named/zones/db.{{ ext_reverse_zone }}"
+    mode: 0640
+    owner: root
+    group: named
+  notify: restart bind
+
+- name: enable bind service
+  service:
+    name: named
+    state: started
+    enabled: yes
+
